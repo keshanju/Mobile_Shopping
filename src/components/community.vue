@@ -8,7 +8,7 @@
       </van-col>
       <van-col span="16" class="cols">
         <form action="/">
-          <van-search  style="padding: 0;border-radius:22px;" class="search" v-model="value" placeholder="大家在搜索：衣服" @click.stop="search"></van-search>
+          <van-search style="padding: 0;border-radius:22px;" class="search" v-model="value" placeholder="大家在搜索：衣服" @click.stop="search"></van-search>
         </form>
       </van-col>
       <van-col span="4" class="cols">
@@ -54,8 +54,7 @@
     <van-tabbar v-model="tabarActive">
       <van-tabbar-item icon="home-o" @click="redirects('/')">首页</van-tabbar-item>
       <van-tabbar-item icon="friends-o" dot @click="redirects('/community')">社区</van-tabbar-item>
-      <van-tabbar-item icon="cart-o" info="5" v-infos="shop_info" @click="redirects('/shoppingCart')">购物车
-      </van-tabbar-item>
+      <van-tabbar-item icon="cart-o" info="5" v-infos="shop_info" @click="redirects('/shoppingCart')">购物车</van-tabbar-item>
       <van-tabbar-item icon="manager-o" info="2" v-infos="my_info" @click="redirects('/me')">我的</van-tabbar-item>
     </van-tabbar>
 
@@ -164,7 +163,6 @@ export default {
     //  tabBar 消息通知指令
     infos: {
       inserted (el, obj) {
-        console.log(obj.value)
         const info = el.childNodes[0].childNodes[1]
         info.innerText = obj.value
       }

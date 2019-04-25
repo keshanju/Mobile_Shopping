@@ -100,7 +100,7 @@ export default {
       active: 0,
       path: '../../static/images/',
       imageList: [],
-      active_Title: null,
+      active_Title: [],
       watch: null,
       disabled: false,
       broad_cast: null,
