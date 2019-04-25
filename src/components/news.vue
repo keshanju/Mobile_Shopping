@@ -49,6 +49,7 @@
 <script>
 import {mapState, mapGetters} from 'vuex'
 import {Waterfall, Toast} from 'vant'
+import { component as VueLazyComponent } from '@xunlei/vue-lazy-component'
 
 export default {
   name: 'active',
@@ -119,6 +120,9 @@ export default {
       }
     }
   },
+  components: {
+    'lazy-component': VueLazyComponent
+  },
   computed: {
     ...mapState({
       title: state => state.home.tab.title,
@@ -145,7 +149,7 @@ export default {
         for (let i = 0; i < 10; i++) {
           this.imageList.push(this.imageList[i])
           this.author.push(this.author[i])
-          this.active_Title.push(this.activeTitle[i])
+          this.active_Title.push(this.active_Title[i])
           this.watch.push(this.watch[i])
           this.grefContent.push(this.grefContent[i])
         }

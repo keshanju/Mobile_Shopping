@@ -25,6 +25,7 @@
 <script>
 import {mapState, mapGetters} from 'vuex'
 import {Waterfall} from 'vant'
+import { component as VueLazyComponent } from '@xunlei/vue-lazy-component'
 
 export default {
   name: 'active',
@@ -76,7 +77,9 @@ export default {
   },
   created () {
   },
-  components: {},
+  components: {
+    'lazy-component': VueLazyComponent
+  },
   data () {
     return {
       tabarActive: 0,

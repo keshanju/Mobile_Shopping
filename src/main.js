@@ -14,13 +14,13 @@ import { Lazyload } from 'vant'
 // 瀑布流
 import { Waterfall } from 'vant'
 import store from './store/index'
-Vue.use(Waterfall)
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 // 状态管理
 Vue.use(vuex)
 Vue.use(Vant)
 Vue.use(Lazyload)
+Vue.use(Waterfall)
 
 /* VUE实例 */
 new Vue({
