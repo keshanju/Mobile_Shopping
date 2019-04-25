@@ -3,21 +3,15 @@
   <div id="app">
     <!-- 搜索区 -->
     <van-row gutter="20" class="row-1">
-      <van-col span="3" class="cols">
+      <van-col span="4" class="cols">
         <a href="#" @click="redirects('/login')">登录</a>
       </van-col>
-      <van-col span="19" class="cols">
+      <van-col span="16" class="cols">
         <form action="/">
-          <van-search>
-            class="search"
-            v-model="value"
-            style="background:white;height:35px;border-radius:22px;"
-            placeholder="大家在搜索：衣服"
-            @click.stop="search"
-          </van-search>
+          <van-search  style="padding: 0;border-radius:22px;" class="search" v-model="value" placeholder="大家在搜索：衣服" @click.stop="search"></van-search>
         </form>
       </van-col>
-      <van-col span="2" class="cols">
+      <van-col span="4" class="cols">
         <van-icon name="qr" class="classfic"/>
       </van-col>
     </van-row>
@@ -70,121 +64,114 @@
 </template>
 
 <script>
-  import {mapState, mapActions, mapGetters} from 'vuex'
-  import {Waterfall} from 'vant'
-  import News from './news'
-
-  export default {
-    name: 'community',
-    components: {
-      'news': News
-    },
-    data () {
-      return {
-        tabarActive: 1,
-        value: null,
-        active: 0,
-        path: '../../static/images/',
-        imageList: [],
-        activeTitle: null,
-        days: null,
-        disabled: false,
-        broadcast: null,
-        show: true,
-        count: 0,
-        isLoading: false
-      }
-    },
-    computed: {
-      ...mapState({
-        title: state => state.community.tab.title,
-        icon: state => state.home.badge.icon,
-        bageTitle: state => state.home.badge.title,
-        actives: state => state.active.home.title,
-        src: state => state.home.lunbo.src,
-        activeTitle: state => state.active.home.activeTitle,
-        days: state => state.active.home.days,
-        broadcast: state => state.home.broadcast,
-        shop_info: state => state.home.shop_info,
-        my_info: state => state.home.my_info,
-        show: state => state.home.show,
-      }),
-      ...mapGetters(['bc_notshow', 'search_show']),
-    },
-    methods: {
-      ...mapActions([
-        'searchA'
-      ]),
-      search () {
-        this.$router.push('/search')
-      },
-      onRefresh () {
-        setTimeout(() => {
-          this.$toast('刷新成功')
-          this.isLoading = false
-          this.count++
-        }, 500)
-      },
-      // 瀑布流方法
-      loadMore () {
-        this.disabled = true
-        setTimeout(() => {
-          for (let i = 0; i < 5; i++) {
-            this.imageList.push(this.imageList[i])
-            this.activeTitle.push(this.activeTitle[i])
-            this.days.push(this.days[i])
-          }
-          this.disabled = false
-        }, 200)
-      },
-      redirects (url) {
-        this.$router.push(url)
-      },
-    },
-    watch: {},
-    directives: {
-      //瀑布流
-      WaterfallLower: Waterfall('lower'),
-      tab: {
-        inserted (el) {
-          //绑定tab样式
-          const tabs = el.childNodes[0].childNodes[0].children[0]
-          tabs.style.backgroundColor = '#d34ba8'
-        }
-      },
-      //tabBar 消息通知指令
-      infos: {
-        inserted (el, obj) {
-          console.log(obj.value)
-          const info = el.childNodes[0].childNodes[1]
-          info.innerText = obj.value
-        }
-      }
-
-    },
-    beforeCreate () {
-      this.axios.get('./static/data.json').then((res) => {
-        if (res.status == 200) {
-          const data = res.data.home
-          this.broadcast = data.broadcast
-          //  console.log(res.data.home.active,this.days,this.activeTitle)
-        } else {
-          this.imageList = this.src
-          this.broadcast = '暂无消息~~QAQ~'
-        }
-      }, (err) => {
+import {mapState, mapActions, mapGetters} from 'vuex'
+import { Waterfall } from 'vant'
+import News from './news'
+export default {
+  name: 'community',
+  beforeCreate () {
+    this.axios.get('./static/data.json').then((res) => {
+      if (res.status === 200) {
+        const data = res.data.home
+        this.broad_cast = data.broadcast
+      } else {
         this.imageList = this.src
-        this.broadcast = '暂无消息~~QAQ~'
-      })
-
+        this.broad_cast = '暂无消息~~QAQ~'
+      }
+    }, () => {
+      this.imageList = this.src
+      this.broad_cast = '暂无消息~~QAQ~'
+    })
+  },
+  created () {
+  },
+  components: {
+    'news': News
+  },
+  data () {
+    return {
+      tabarActive: 1,
+      value: null,
+      active: 0,
+      path: '../../static/images/',
+      imageList: [],
+      active_Title: null,
+      days_dot: null,
+      disabled: false,
+      broad_cast: null,
+      show_dot: true,
+      count: 0,
+      isLoading: false
+    }
+  },
+  computed: {
+    ...mapState({
+      title: state => state.community.tab.title,
+      icon: state => state.home.badge.icon,
+      bageTitle: state => state.home.badge.title,
+      actives: state => state.active.home.title,
+      src: state => state.home.lunbo.src,
+      activeTitle: state => state.active.home.activeTitle,
+      days: state => state.active.home.days,
+      broadcast: state => state.home.broadcast,
+      shop_info: state => state.home.shop_info,
+      my_info: state => state.home.my_info,
+      show: state => state.home.show
+    }),
+    ...mapGetters(['bc_notshow', 'search_show'])
+  },
+  methods: {
+    ...mapActions([
+      'searchA'
+    ]),
+    search () {
+      this.$router.push('/search')
     },
-    created () {
-      console.log(this.search_show)
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+        this.count++
+      }, 500)
+    },
+    // 瀑布流方法
+    loadMore () {
+      this.disabled = true
+      setTimeout(() => {
+        for (let i = 0; i < 5; i++) {
+          this.imageList.push(this.imageList[i])
+          this.active_Title.push(this.activeTitle[i])
+          this.days_dot.push(this.days_dot[i])
+        }
+        this.disabled = false
+      }, 200)
+    },
+    redirects (url) {
+      this.$router.push(url)
+    }
+  },
+  watch: {},
+  directives: {
+    //  瀑布流
+    WaterfallLower: Waterfall('lower'),
+    tab: {
+      inserted (el) {
+        //  绑定tab样式
+        const tabs = el.childNodes[0].childNodes[0].children[0]
+        tabs.style.backgroundColor = '#d34ba8'
+      }
+    },
+    //  tabBar 消息通知指令
+    infos: {
+      inserted (el, obj) {
+        console.log(obj.value)
+        const info = el.childNodes[0].childNodes[1]
+        info.innerText = obj.value
+      }
     }
   }
+}
 </script>
-
 <style lang="less" scoped>
   @import url('../assets/css/home.less');
 </style>
-
