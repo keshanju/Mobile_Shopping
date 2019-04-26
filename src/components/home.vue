@@ -4,7 +4,7 @@
     <!-- 搜索区 -->
     <van-row gutter="20" class="row-1">
       <van-col span="4" class="cols">
-        <a href="#" @click="redirects('/login')">登录</a>
+        <a @click="redirects('/login')">登录</a>
       </van-col>
       <van-col span="16" class="cols">
         <form action="/">
@@ -94,7 +94,6 @@
       <van-tabbar-item icon="manager-o" info="2" v-infos="my_info" @click="redirects('/me')">我的</van-tabbar-item>
     </van-tabbar>
   </div>
-
 </template>
 
 <script>

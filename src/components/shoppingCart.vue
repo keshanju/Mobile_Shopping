@@ -4,7 +4,7 @@
     <!-- 搜索区 -->
     <van-row gutter="20" class="row-1">
       <van-col span="4" class="cols">
-        <a href="#">登录</a>
+        <a @click="redirects('/login')">登录</a>
       </van-col>
       <van-col span="16" class="cols">
         <form action="/">
@@ -23,7 +23,7 @@
             <van-checkbox v-model="checked[index]">{{shops[index]}}></van-checkbox>
           </van-col>
           <van-col span="4" offset="7">
-            <span class="edit" @click="showList = true">领券|编辑</span>
+            <span class="edit" @click="showList = true">领券&nbsp;|&nbsp;编辑</span>
           </van-col>
         </van-row>
         <div @click="redirects('/goods/id_0/buy')">
@@ -33,13 +33,7 @@
     </van-pull-refresh>
     <!-- 优惠券列表 -->
     <van-popup v-model="showList" position="bottom">
-      <van-coupon-list>
-        :coupons="coupons"
-        :chosen-coupon="chosenCoupon"
-        :disabled-coupons="disabledCoupons"
-        @change="onChange"
-        @exchange="onExchange"
-      </van-coupon-list>
+      <van-coupon-list :coupons="coupons" :chosen-coupon="chosenCoupon" :disabled-coupons="disabledCoupons" @change="onChange" @exchange="onExchange"></van-coupon-list>
     </van-popup>
     <!-- tabBar -->
     <van-tabbar v-model="tabarActive">
@@ -50,6 +44,7 @@
     </van-tabbar>
   </div>
 </template>
+
 <script>
 import {mapState, mapActions, mapGetters} from 'vuex'
 import {Toast} from 'vant'
