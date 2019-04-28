@@ -9,10 +9,8 @@ import VueAxios from 'vue-axios'
 // ui 框架
 import Vant from 'vant'
 import 'vant/lib/index.css'
-// 懒加载
-import { Lazyload } from 'vant'
-// 瀑布流
-import { Waterfall } from 'vant'
+// 懒加载 瀑布流
+import { Lazyload, Waterfall } from 'vant'
 import store from './store/index'
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)

@@ -6,7 +6,6 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -42,35 +41,31 @@ module.exports = {
 
     cssSourceMap: true
   },
-
   build: {
-    // Template for index.html
+    // 使用config/prod.env.js中定义的编译环境
+    env: require('./prod.env'),
+
+    // 编译输入的index.html文件。node.js中，在任何模块文件内部，可以使用__filename变量获取当前模块文件的带有完整绝对路径的文件名,
     index: path.resolve(__dirname, '../dist/index.html'),
 
-    // Paths
+    // 编译输出的静态资源路径
     assetsRoot: path.resolve(__dirname, '../dist'),
+
+    // 编译输出的二级目录
     assetsSubDirectory: 'static',
+
+    // 编译发布的根目录，可配置为资源服务器或者cdn域名
     assetsPublicPath: './',
 
-    /**
-     * Source Maps
-     */
-
+    //是否开启cssSourceMap
     productionSourceMap: true,
-    // https://webpack.js.org/configuration/devtool/#production
+
     devtool: '#source-map',
 
-    // Gzip off by default as many popular static hosts such as
-    // Surge or Netlify already gzip all static assets for you.
-    // Before setting to `true`, make sure to:
-    // npm install --save-dev compression-webpack-plugin
+    // 是否开启gzip
     productionGzip: false,
+    // 需要用gzip压缩的文件扩展名
     productionGzipExtensions: ['js', 'css'],
-
-    // Run the build command with an extra argument to
-    // View the bundle analyzer report after build finishes:
-    // `npm run build --report`
-    // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
   }
 }
