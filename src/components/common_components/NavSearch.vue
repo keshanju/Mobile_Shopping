@@ -11,11 +11,7 @@
 				</form>
 			</van-col>
 			<van-col span="4" class="cols">
-				<van-icon
-					name="qr"
-					class="classfic"
-					@click="redirects('/about')"
-				/>
+				<van-icon name="qr" class="classfic" @click="redirects('/about')"/>
 			</van-col>
 		</van-row>
     </div>
@@ -52,5 +48,5 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-
+@import url("../../assets/css/base_component.less");
 </style>

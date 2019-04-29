@@ -2,7 +2,7 @@
 	<!-- 首页组件 -->
 	<div id="app">
 		<!-- 搜索区 -->
-		<!-- <van-row gutter="20" class="row-1">
+		<van-row gutter="20" class="row-1">
 			<van-col span="4" class="cols">
 				<a @click="redirects('/login')">登录</a>
 			</van-col>
@@ -24,9 +24,7 @@
 					@click="redirects('/about')"
 				/>
 			</van-col>
-		</van-row> -->
-        <nav-search></nav-search>
-
+		</van-row>
 
 		<!-- 标签区域 -->
 		<van-row>
@@ -158,7 +156,7 @@ import { mapState, mapActions, mapGetters } from "vuex";
 import { Waterfall, Toast } from "vant";
 import Swiper from "./swiper";
 import Active from "./active";
-import NavSearch from "./common_components/NavSearch"
+import NavSearch from "./common_components/NavSearch";
 
 export default {
 	name: "home",
@@ -182,8 +180,8 @@ export default {
 	created() {},
 	components: {
 		swiper: Swiper,
-        active: Active,
-        "nav-search": NavSearch
+		active: Active,
+		"nav-search": NavSearch
 	},
 	data() {
 		return {
