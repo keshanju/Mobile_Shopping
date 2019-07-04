@@ -21,10 +21,11 @@ Vue.use(Lazyload)
 Vue.use(Waterfall)
 
 /* VUE实例 */
-new Vue({
+let app = new Vue({
   el: '#app',
   router,
   store,
   components: {App},
   template: '<App/>'
 })
+export default app
