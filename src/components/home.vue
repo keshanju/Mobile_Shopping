@@ -8,11 +8,17 @@
       </van-col>
       <van-col span="16" class="cols">
         <form action="/">
-          <van-search style="padding: 0;" class="search" v-model="value" placeholder="大家在搜索：衣服" @click.stop="search"></van-search>
+          <van-search
+            style="padding: 0;"
+            class="search"
+            v-model="value"
+            placeholder="大家在搜索：衣服"
+            @click.stop="search"
+          ></van-search>
         </form>
       </van-col>
       <van-col span="4" class="cols">
-        <van-icon name="qr" class="classfic" @click="redirects('/about')"/>
+        <van-icon name="qr" class="classfic" @click="redirects('/about')" />
       </van-col>
     </van-row>
 
@@ -25,60 +31,60 @@
               <!-- 今日推荐版块 -->
               <div v-if="title[index]== '今日推荐'" class="contain">
                 <!-- 轮播 -->
-                <swiper class="swiper" :tabs="title[index]"/>
+                <swiper class="swiper" :tabs="title[index]" />
                 <van-row class="col-2">
-                  <van-col class="row-2" span="6" v-for="(v,index) in icon" :key='v.id'>
+                  <van-col class="row-2" span="6" v-for="(v,index) in icon" :key="v.id">
                     <a href="#">
-                      <img :src="path+'icon/'+icon[index]+'.png'" @click="tip()"/>
+                      <img :src="path+'icon/'+icon[index]+'.png'" @click="tip()" />
                       <span>{{bageTitle[index]}}</span>
                     </a>
                   </van-col>
                   <!-- 通知 -->
                   <van-col span="24" style="margin-top:20px;" v-show="bc_notshow">
-                    <van-notice-bar mode="link" left-icon="https://img.yzcdn.cn/public_files/2017/8/10/6af5b7168eed548100d9041f07b7c616.png">
-                      {{broadcast[0]}}
-                    </van-notice-bar>
+                    <van-notice-bar
+                      mode="link"
+                      left-icon="https://img.yzcdn.cn/public_files/2017/8/10/6af5b7168eed548100d9041f07b7c616.png"
+                    >{{broadcast[0]}}</van-notice-bar>
                   </van-col>
                 </van-row>
                 <!-- 活动版块 -->
-                <active :tabs="title[index]"/>
+                <active :tabs="title[index]" />
               </div>
 
               <!-- 时尚版块 -->
               <div v-if="title[index]== '时尚'" class="contain">
-                <active :tabs="title[index]"/>
+                <active :tabs="title[index]" />
               </div>
 
               <!-- 美妆版块 -->
               <div v-if="title[index]== '美妆'" class="contain">
-                <swiper class="swiper" :tabs="title[index]"/>
-                <active :tabs="title[index]"/>
+                <swiper class="swiper" :tabs="title[index]" />
+                <active :tabs="title[index]" />
               </div>
 
               <!-- 家电版块 -->
               <div v-if="title[index]== '家电'" class="contain">
-                <swiper class="swiper" :tabs="title[index]"/>
-                <active :tabs="title[index]"/>
+                <swiper class="swiper" :tabs="title[index]" />
+                <active :tabs="title[index]" />
               </div>
 
               <!-- 家居版块 -->
               <div v-if="title[index]== '家居'" class="contain">
-                <swiper class="swiper" :tabs="title[index]"/>
-                <active :tabs="title[index]"/>
+                <swiper class="swiper" :tabs="title[index]" />
+                <active :tabs="title[index]" />
               </div>
 
               <!-- 国际版块 -->
               <div v-if="title[index]== '国际'" class="contain">
-                <swiper class="swiper" :tabs="title[index]"/>
-                <active :tabs="title[index]"/>
+                <swiper class="swiper" :tabs="title[index]" />
+                <active :tabs="title[index]" />
               </div>
 
               <!-- 生活版块 -->
               <div v-if="title[index]== '生活'" class="contain">
-                <swiper class="swiper" :tabs="title[index]"/>
-                <active :tabs="title[index]"/>
+                <swiper class="swiper" :tabs="title[index]" />
+                <active :tabs="title[index]" />
               </div>
-
             </van-pull-refresh>
           </van-tab>
         </van-tabs>
@@ -89,49 +95,53 @@
     <van-tabbar v-model="tabarActive">
       <van-tabbar-item icon="home-o" @click="redirects('/')">首页</van-tabbar-item>
       <van-tabbar-item icon="friends-o" @click="redirects('/community')">社区</van-tabbar-item>
-      <van-tabbar-item icon="cart-o" info="5" v-infos="shop_info" @click="redirects('/shoppingCart')">购物车
-      </van-tabbar-item>
+      <van-tabbar-item
+        icon="cart-o"
+        info="5"
+        v-infos="shop_info"
+        @click="redirects('/shoppingCart')"
+      >购物车</van-tabbar-item>
       <van-tabbar-item icon="manager-o" info="2" v-infos="my_info" @click="redirects('/me')">我的</van-tabbar-item>
     </van-tabbar>
   </div>
-
 </template>
 
 <script>
-import {mapState, mapActions, mapGetters} from 'vuex'
-import {Waterfall, Toast} from 'vant'
-import Swiper from './swiper'
-import Active from './active'
+import { mapState, mapActions, mapGetters } from "vuex";
+import { Waterfall, Toast } from "vant";
+import Swiper from "./swiper";
+import Active from "./active";
 
 export default {
-  name: 'home',
-  beforeCreate () {
-    this.axios.get('./static/data.json').then((res) => {
-      if (res.status === 200) {
-        const data = res.data.home
-        this.broad_cast = data.broadcast
-      } else {
-        this.imageList = this.src
-        this.broad_cast = '暂无消息~~QAQ~'
+  name: "home",
+  beforeCreate() {
+    this.axios.get("./static/data.json").then(
+      res => {
+        if (res.status === 200) {
+          const data = res.data.home;
+          this.broad_cast = data.broadcast;
+        } else {
+          this.imageList = this.src;
+          this.broad_cast = "暂无消息~~QAQ~";
+        }
+      },
+      () => {
+        this.imageList = this.src;
+        this.broad_cast = "暂无消息~~QAQ~";
       }
-    }, () => {
-      this.imageList = this.src
-      this.broad_cast = '暂无消息~~QAQ~'
-    })
+    );
   },
-  created () {
-
-  },
+  created() {},
   components: {
-    'swiper': Swiper,
-    'active': Active
+    swiper: Swiper,
+    active: Active
   },
-  data () {
+  data() {
     return {
       tabarActive: 0,
       value: null,
       active: 0,
-      path: '../../static/images/',
+      path: "../../static/images/",
       imageList: [],
       active_Title: null,
       days_dot: null,
@@ -140,7 +150,7 @@ export default {
       show_dot: true,
       count: 0,
       isLoading: false
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -156,64 +166,61 @@ export default {
       my_info: state => state.home.my_info,
       show: state => state.home.show
     }),
-    ...mapGetters(['bc_notshow', 'search_show'])
+    ...mapGetters(["bc_notshow", "search_show"])
   },
   methods: {
-    ...mapActions([
-      'searchA'
-    ]),
-    search () {
-      this.$router.push('/search')
+    ...mapActions(["searchA"]),
+    search() {
+      this.$router.push("/search");
     },
-    onRefresh () {
+    onRefresh() {
       setTimeout(() => {
-        this.$toast('刷新成功')
-        this.isLoading = false
-        this.count++
-      }, 500)
+        this.$toast("刷新成功");
+        this.isLoading = false;
+        this.count++;
+      }, 500);
     },
     // 瀑布流方法
-    loadMore () {
-      this.disabled = true
+    loadMore() {
+      this.disabled = true;
       setTimeout(() => {
         for (let i = 0; i < 5; i++) {
-          this.imageList.push(this.imageList[i])
-          this.active_Title.push(this.active_Title[i])
-          this.days_dot.push(this.days_dot[i])
+          this.imageList.push(this.imageList[i]);
+          this.active_Title.push(this.active_Title[i]);
+          this.days_dot.push(this.days_dot[i]);
         }
-        this.disabled = false
-      }, 200)
+        this.disabled = false;
+      }, 200);
     },
-    redirects (url) {
-      this.$router.push(url)
+    redirects(url) {
+      this.$router.push(url);
     },
-    tip () {
-      Toast('网络错误o(╥﹏╥)o 请稍后再试~')
+    tip() {
+      Toast("网络错误o(╥﹏╥)o 请稍后再试~");
     }
   },
   watch: {},
   directives: {
     // 瀑布流
-    WaterfallLower: Waterfall('lower'),
+    WaterfallLower: Waterfall("lower"),
     tab: {
-      inserted (el) {
+      inserted(el) {
         // 绑定tab样式
-        const tabs = el.childNodes[0].childNodes[0].children[0]
-        tabs.style.backgroundColor = '#d34ba8'
+        const tabs = el.childNodes[0].childNodes[0].children[0];
+        tabs.style.backgroundColor = "#d34ba8";
       }
     },
     // tabBar 消息通知指令
     infos: {
-      inserted (el, obj) {
-        console.log(obj.value)
-        const info = el.childNodes[0].childNodes[1]
-        info.innerText = obj.value
+      inserted(el, obj) {
+        console.log(obj.value);
+        const info = el.childNodes[0].childNodes[1];
+        info.innerText = obj.value;
       }
     }
-
   }
-}
+};
 </script>
 <style lang="less" scoped>
-  @import url('../assets/css/home.less');
+@import url("../assets/css/home.less");
 </style>

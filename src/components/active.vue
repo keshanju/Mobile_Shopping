@@ -3,14 +3,19 @@
     <!-- 活动组件 -->
     <van-row class="col-2">
       <!--活动 标题 -->
-      <van-col span='24'>
+      <van-col span="24">
         <h4>{{actives[0]}}</h4>
       </van-col>
     </van-row>
     <!-- 懒加载  瀑布流-->
-    <lazy-component class="lazys" v-waterfall-lower="loadMore" waterfall-disabled="disabled" waterfall-offset="300">
-      <van-row v-for="(img,index) in imageList" :key='img.id'>
-        <img v-lazy="img" name="adapter" @click.stop="redirect('/goods/id_0')"/>
+    <lazy-component
+      class="lazys"
+      v-waterfall-lower="loadMore"
+      waterfall-disabled="disabled"
+      waterfall-offset="300"
+    >
+      <van-row v-for="(img,index) in imageList" :key="img.id">
+        <img v-lazy="img" name="adapter" @click.stop="redirect('/goods/id_0')" />
         <van-col span="16" offset="2" class="lazy-left">
           <h4 @click.stop="redirect('/goods/id_0')">{{activeTitle[index]}}</h4>
         </van-col>
@@ -23,82 +28,84 @@
 </template>
 
 <script>
-import {mapState, mapGetters} from 'vuex'
-import {Waterfall} from 'vant'
+import { mapState, mapGetters } from "vuex";
+import { Waterfall } from "vant";
 
 export default {
-  name: 'active',
-  beforeCreate () {
-    this.axios.get('./static/data.json').then((res) => {
-      if (res.status === 200) {
-        const data = res.data.home
-        this.days_dot = data.active.days
-        switch (this.tabs) {
-          case '今日推荐' :
-            this.active_Title = data.active.tuijian_title
-            this.imageList = data.imageList
-            break
-          case '时尚' :
-            this.active_Title = data.active.shishang_title
-            this.imageList = data.shishangImglist
-            break
-          case '美妆' :
-            this.active_Title = data.active.meizhuang_title
-            this.imageList = data.meizhuangImglist
-            break
-          case '家电' :
-            this.active_Title = data.active.jiadian_title
-            this.imageList = data.jiadianImglist
-            break
-          case '家居' :
-            this.active_Title = data.active.jiaju_title
-            this.imageList = data.jiajuImglist
-            break
-          case '国际' :
-            this.active_Title = data.active.guoji_title
-            this.imageList = data.guojiImglist
-            break
-          case '生活' :
-            this.active_Title = data.active.shenghuo_title
-            this.imageList = data.shenghuoImglist
-            break
-          default:
-            break
+  name: "active",
+  beforeCreate() {
+    this.axios.get("./static/data.json").then(
+      res => {
+        if (res.status === 200) {
+          const data = res.data.home;
+          this.days_dot = data.active.days;
+          switch (this.tabs) {
+            case "今日推荐":
+              this.active_Title = data.active.tuijian_title;
+              this.imageList = data.imageList;
+              break;
+            case "时尚":
+              this.active_Title = data.active.shishang_title;
+              this.imageList = data.shishangImglist;
+              break;
+            case "美妆":
+              this.active_Title = data.active.meizhuang_title;
+              this.imageList = data.meizhuangImglist;
+              break;
+            case "家电":
+              this.active_Title = data.active.jiadian_title;
+              this.imageList = data.jiadianImglist;
+              break;
+            case "家居":
+              this.active_Title = data.active.jiaju_title;
+              this.imageList = data.jiajuImglist;
+              break;
+            case "国际":
+              this.active_Title = data.active.guoji_title;
+              this.imageList = data.guojiImglist;
+              break;
+            case "生活":
+              this.active_Title = data.active.shenghuo_title;
+              this.imageList = data.shenghuoImglist;
+              break;
+            default:
+              break;
+          }
+        } else {
+          this.imageList = this.src;
+          this.broad_cast = "暂无消息~~QAQ~";
         }
-      } else {
-        this.imageList = this.src
-        this.broad_cast = '暂无消息~~QAQ~'
+      },
+      () => {
+        this.imageList = this.src;
+        this.broad_cast = "暂无消息~~QAQ~";
       }
-    }, () => {
-      this.imageList = this.src
-      this.broad_cast = '暂无消息~~QAQ~'
-    })
+    );
   },
-  created () {
-  },
+  created() {},
   components: {},
-  data () {
+  data() {
     return {
       tabarActive: 0,
       value: null,
       active: 0,
-      path: '../../static/images/',
+      path: "../../static/images/",
       imageList: [],
       active_Title: null,
       days_dot: null,
       broad_cast: null,
       show_dot: true,
       disabled: false
-    }
+    };
   },
   props: {
     tabs: {
       type: String,
       required: true,
-      default () {
+      default() {
         return {
-          tabs: 'errTitle'
-        }
+          tabs: "errTitle"
+        };
       }
     }
   },
@@ -115,37 +122,37 @@ export default {
       shop_info: state => state.home.shop_info,
       my_info: state => state.home.my_info
     }),
-    ...mapGetters(['bc_notshow'])
+    ...mapGetters(["bc_notshow"])
   },
   methods: {
-    search () {
-      console.log(this.value)
+    search() {
+      console.log(this.value);
     },
     // 瀑布流方法
-    loadMore () {
-      this.disabled = true
+    loadMore() {
+      this.disabled = true;
       setTimeout(() => {
         for (let i = 0; i < 10; i++) {
-          this.imageList.push(this.imageList[i])
-          this.active_Title.push(this.activeTitle[i])
-          this.days_dot.push(this.days[i])
+          this.imageList.push(this.imageList[i]);
+          this.active_Title.push(this.activeTitle[i]);
+          this.days_dot.push(this.days[i]);
         }
-        this.disabled = false
-      }, 200)
+        this.disabled = false;
+      }, 200);
     },
-    redirect (url) {
-      console.log(url)
-      this.$router.push(url)
+    redirect(url) {
+      console.log(url);
+      this.$router.push(url);
     }
   },
   watch: {},
   directives: {
     // 瀑布流
-    WaterfallLower: Waterfall('lower')
+    WaterfallLower: Waterfall("lower")
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
-  @import url('../assets/css/home.less');
+@import url("../assets/css/home.less");
 </style>
